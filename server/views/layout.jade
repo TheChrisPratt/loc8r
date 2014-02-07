@@ -21,11 +21,13 @@ html
           ul.nav.navbar-nav.navbar-right
             li
               a(href="/signin/") Sign in
-    .container
-      block content
-      footer
-        .row
-          .col-xs-12
-            small &copy; Anodyzed 2014
+    .wrapper          
+      .container
+        block content
+      .push
+    footer
+      .container
+        .col-xs-12
+          small &copy; Anodyzed 2014
     script(src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
     script(src="/bootstrap/js/bootstrap.min.js")
