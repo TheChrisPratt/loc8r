@@ -5,5 +5,5 @@ module.exports.about = function (req,res) {
 
 /* GET 'sign in' page */
 module.exports.signin = function (req,res) {
-	res.render("index",{ title: "Sign in" });
+	res.render("signin-index",{ title: "Sign in" });
 };
