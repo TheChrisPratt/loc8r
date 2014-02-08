@@ -1,3 +1,24 @@
+.review {
+	padding-bottom: 5px;
+}
+
+.panel-body.review-container {
+	padding-top: 0;
+}
+
+.review-header {
+	margin-bottom: 10px;
+}
+
+.reviewAuthor {
+	margin: 0 5px;
+}
+
+.reviewTimestamp {
+	color: #ccc;
+}
+
+
 /* Responsive Sticky Footer: https://gist.github.com/aalaap/3066704 */
 /*
 html, body {
