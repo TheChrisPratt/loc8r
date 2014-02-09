@@ -1,65 +1,28 @@
 extends layout
 
+include _includes/sharedHTMLfunctions
+
 block content
   #banner.page-header
     .row
       .col-lg-6
-        h1 Loc8r
-          small &nbsp;Find places to work with wifi near you!
+        h1= pageHeader.title
+          small &nbsp;#{pageHeader.subtitle}
   .row
     .col-xs-12.col-sm-8
       .row.list-group
-        .col-xs-12.list-group-item
-          h4
-            a(href="/location") Starcups
-            small &nbsp;
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star-empty
-              span.glyphicon.glyphicon-star-empty
-            span.badge.pull-right.badge-default 100m
-          p.address 125 High Street, Reading, RG6 1PS
-          p
-            span.label.label-warning Hot drinks
-            | &nbsp;
-            span.label.label-warning Food
-            | &nbsp;
-            span.label.label-warning Premium wifi
-            | &nbsp;
-        .col-xs-12.list-group-item
-          h4
-            a(href="/location") Mints Euro Asian Cuisine
-            small &nbsp;
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star-empty
-            span.badge.pull-right.badge-default 1.3mi
-          p.address 11088 Olson Dr, Rancho Cordova, CA 95670
-          p
-            span.label.label-warning Chinese
-            | &nbsp;
-            span.label.label-warning Euro Asian
-            | &nbsp;
-            span.label.label-warning Walkable
-            | &nbsp;
-        .col-xs-12.list-group-item
-          h4
-            a(href="/location") Sala Thai
-            small &nbsp;
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star-empty
-              span.glyphicon.glyphicon-star-empty
-            span.badge.pull-right.badge-default 0.6mi
-          p.address 3101 Zinfandel Dr, Rancho Cordova, CA 85670
-          p
-            span.label.label-warning Thai Food
-            | &nbsp;
-            span.label.label-warning Walkable
-            | &nbsp;
+        each location in locations
+          .col-xs-12.list-group-item
+            h4
+              a(href="/location")= location.name
+              small &nbsp;
+                +outputRating(location.rating)
+                &nbsp; #{location.rating}
+              span.badge.pull-right.badge-default= location.distance
+            p.address= location.address
+            p
+              each facility in location.facilities
+                span.label.label-warning= facility
+                | &nbsp;
     .col-xs-12.col-sm-4
-      p.lead Looking for wifi and a seat? Loc8r helps you find places to work when out and about.  Perhaps with coffee, cake or a pint?  let Loc8r help you find the place you're looking for.
+      p.lead= sidebar
