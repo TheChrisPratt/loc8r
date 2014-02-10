@@ -94,5 +94,14 @@ module.exports.locationInfo = function (req,res) {
 
 /* GET 'Add Review' page */
 module.exports.addReview = function (req,res) {
-	res.render("location-review-form",{ title: "Add review" });
+  var data = {
+    title: "Review Starcups on Loc9r",
+    pageHeader: {
+      title: "Review Starcups"
+    },
+    user: {
+      displayName: "Simon Holmes"
+    }
+  };
+  res.render("location-review-form",data);
 };
