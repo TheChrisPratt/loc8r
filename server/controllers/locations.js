@@ -45,16 +45,51 @@ module.exports.homelist = function (req,res) {
 /* GET 'Location Info' page */
 module.exports.locationInfo = function (req,res) {
   var data = {
-    title: "Location Info",
+    title: "Starcups",
+    pageHeader: {
+      title: "Starcups"
+    },
+    sidebar: {
+      context: "is on Loc8r because it has accessible wifi and space to sit down with your laptop and get some work done.",
+      callToAction: "If you've been and you like it - or if you don't - please leave a review to help other people just like you."
+    },
     location: {
       name: "Starcups",
       address: "125 High Street, Reading, RG6 1PS",
-      distance: "100m",
+      geocode: {
+        lat: 51.455041,
+        lng: -0.9690884
+      },
       rating: 3,
-      facilities: ["Hot drinks","Food","Premium wifi"]
+      facilities: ["Hot drinks","Food","Premium wifi"],
+      hours: [{
+        days: "Monday - Friday",
+        opening: "8:00am",
+        closing: "5:00pm",
+        closed: false
+      },{
+        days: "Saturday",
+        opening: "8:00am",
+        closing: "5:00pm",
+        closed: false
+      },{
+        days: "Sunday",
+        closed: true
+      }],
+      reviews: [{
+        author: "Simon Holmes",
+        rating: 5,
+        timestamp: "16 July 2013",
+        comments: "What a great place.  I Can't say enough good things about it."
+      },{
+        author: "Charlie Chaplin",
+        rating: 3,
+        timestamp: "16 June 2013",
+        comments: "It was okay.  Coffee wasn't great, but the wifi was fast."
+      }]
     }
   };
-	res.render("location-info",data);
+  res.render("location-info",data);
 };
 
 /* GET 'Add Review' page */

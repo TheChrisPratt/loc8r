@@ -17,7 +17,7 @@ block content
               a(href="/location")= location.name
               small &nbsp;
                 +outputRating(location.rating)
-                &nbsp; #{location.rating}
+                | &nbsp; #{location.rating}
               span.badge.pull-right.badge-default= location.distance
             p.address= location.address
             p
