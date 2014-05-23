@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var readline = require('readline');
 
-var dbURI = 'mongodb://localhost/Loc8r';
+//var dbURI = 'mongodb://localhost/Loc8r';
+var dbURI = 'mongodb://Anodyzed:4n0dyz3d@ds045089.mongolab.com:45089/loc8r';
 
 mongoose.connect(dbURI);
 
@@ -38,8 +39,6 @@ process.on('SIGINT',function() {
   });
 });
 
-require('./locations');
-
   // Windows SIGINT support
 if(process.platform === 'win32') {
   var rl = readline.createInterface({
@@ -50,3 +49,5 @@ if(process.platform === 'win32') {
     process.emit('SIGINT');
   });
 }
+
+require('./locations');
