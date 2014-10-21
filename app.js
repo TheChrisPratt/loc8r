@@ -1,7 +1,7 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
-require('server/models/db');
+require('./api/models/db');
 
 var app = express();
 

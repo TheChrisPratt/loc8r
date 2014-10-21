@@ -23,8 +23,8 @@ var reviewSchema = new mongoose.Schema({
     min: 0,
     max: 5
   },
-  reviewText: String,
-  createdOn: {
+  comments: String,
+  timestamp: {
     type: Date,
     "default": Date.now
   }
@@ -43,11 +43,12 @@ var locationSchema = new mongoose.Schema({
     "default": 0
   },
   facilities: [String],
-  coords: {
+  geocode: {
     type: [Number],
-    index: '2dsphere'
+    index: '2dsphere',
+    required: true
   },
-  hoursOfOperation: [hoursOfOperationSchema],
+  hours: [hoursOfOperationSchema],
   reviews: [reviewSchema]
 });
 

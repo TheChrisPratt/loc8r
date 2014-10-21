@@ -1,6 +1,7 @@
 {
   "name": "Loc8r",
   "version": "0.0.1",
+  "main": "app.js",
   "private": true,
   "scripts": {
     "start": "node app.js"
@@ -13,6 +14,7 @@
     "express": "3.4.x",
     "jade": "*",
     "mongoose": "3.8.x",
-    "readline": "0.0.x"
+    "readline": "0.0.x",
+    "request": "2.45.x"
   }
 }

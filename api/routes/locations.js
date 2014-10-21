@@ -4,7 +4,7 @@ module.exports = function(app) {
 		// locations
 	app.get('/api/locations',ctrl.listLocationsByDistance);
 	app.post('/api/locations',ctrl.createLocation);
-	app.get('/api.locations/:locationId',ctrl.getLocation);
+	app.get('/api/locations/:locationId',ctrl.getLocation);
 	app.put('/api/locations/:locationId',ctrl.updateLocation);
 	app.delete('/api/locations/:locationId',ctrl.deleteLocation);
 	

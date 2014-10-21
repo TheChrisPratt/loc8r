@@ -1,13 +1,13 @@
 {
   "name": "Starcups",
   "address": "125 High Street, Reading, RG6 1PS",
-  "rating": 3,
-  "facilities": ["Hot drinks", "Food", "Premium wifi"],
-  "coords": [-0.9690884,51.455041],
-  "hoursOfOperation": [{
+  "geocode": [-0.9690884,51.455041],
+  "rating": 4,
+  "facilities": ["Hot drinks","Food","Premium wifi"],
+  "hours": [{
     "days": "Monday - Friday",
-    "opening": "7:00am",
-    "closing": "7:00pm",
+    "opening": "8:00am",
+    "closing": "5:00pm",
     "closed": false
   },{
     "days": "Saturday",
@@ -19,6 +19,18 @@
     "closed": true
   }],
   "reviews": [{
-    
-    }]
+    "author": {
+      "displayName": "Simon Holmes"
+    },
+    "rating": 5,
+    "timestamp": "16 July 2013",
+    "comments": "What a great place.  I Can't say enough good things about it."
+  },{
+    "author": {
+      "displayName": "Charlie Chaplin"
+    },
+    "rating": 3,
+    "timestamp": "16 June 2013",
+    "comments": "It was okay.  Coffee wasn't great, but the wifi was fast."
+  }]
 }
