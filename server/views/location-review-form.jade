@@ -6,7 +6,10 @@ block content
       h1= pageHeader.title
   .row
     .col-xs-12.col-md-6
-      form.form-horizontal(action="/location", method="GET", role="form")
+      form#addReview.form-horizontal(action="", method="POST", role="form")
+        - if(error == "val")
+          .alert.alert-danger(role="alert") All fields are required, please try again
+        input(name="name",value=user.displayName,type="hidden")
         .form-group
           label.col-xs-2.col-sm-2.control-label(for="name") Name
           .col-xs-10.col-sm-10

@@ -15,7 +15,10 @@ var hoursOfOperationSchema = new mongoose.Schema({
 
 var reviewSchema = new mongoose.Schema({
   author: {
-    displayName: String
+    displayName: {
+      type: String,
+      required: true
+    }
   },
   rating: {
     type: Number,
@@ -23,7 +26,10 @@ var reviewSchema = new mongoose.Schema({
     min: 0,
     max: 5
   },
-  comments: String,
+  comments: {
+    type: String,
+    required: true
+  },
   timestamp: {
     type: Date,
     "default": Date.now

@@ -16,6 +16,23 @@ var formatDistance = function (distance) {
   }
 }; //formatDistance
 
+var _showError = function (req,res,status) {
+  var data;
+  if(status === 404) {
+    data = {
+      title: "404: Page Not Found",
+      content: "WTF? Looks like we can't find that page.  OFW!"
+    };
+  } else {
+    data = {
+      title: status + ": Request Error",
+      content: "Something, somewhere, has gone horribly wrong."
+    };
+  }
+  res.status(status);
+  res.render("generic-text",data);
+}; //_showError
+
 var renderHomepage = function (req,res,data) {
   var message;
   if(data instanceof Array) {
@@ -32,7 +49,7 @@ var renderHomepage = function (req,res,data) {
       title: "Loc8r",
       subtitle: "Find places to work with wifi near you!"
     },
-    sidebar: "Looking for wifi and a seat? Loc8r helps you find places to work when out and about.  Perhaps with coffee, cake or a pint?  let Loc8r help you find the place you're looking for.",
+    sidebar: "Looking for wifi and a seat? Loc8r helps you find places to work when out and about.  Perhaps with coffee, cake or a pint?  Let Loc8r help you find the place you're looking for.",
     locations: data,
     message: message
   });
@@ -51,12 +68,16 @@ module.exports.homelist = function (req,res) {
       page: 10
     }
   },function(err,response,body) {
-    if((response.statusCode === 200) && body.length) {
-      for(var i = 0;i < body.length;i++) {
-        body[i].distance = formatDistance(body[i].distance);
+    if(response.statusCode === 200) {
+      if(body.length) {
+        for(var i = 0;i < body.length;i++) {
+          body[i].distance = formatDistance(body[i].distance);
+        }
       }
+      renderHomepage(req,res,body);
+    } else {
+      _showError(req,res,response.statusCode);
     }
-    renderHomepage(req,res,body);
   })
 }; //homelist
 
@@ -75,31 +96,73 @@ var renderDetail = function (req,res,data) {
   });
 }; //renderDetail
 
-/* GET 'Location Info' page */
-module.exports.locationInfo = function (req,res) {
+var getLocationInfo = function (req,res,callback) {
   request({
     url: apiOptions.server + "/api/locations/" + req.params.locationId,
     method: "GET",
     json: {}
   },function(err,response,body) {
-    body.geocode = {
-      lng: body.geocode[0],
-      lat: body.geocode[1]
+    if(response.statusCode === 200) {
+      body.geocode = {
+        lng: body.geocode[0],
+        lat: body.geocode[1]
+      };
+      callback(req,res,body);
+    } else {
+      _showError(req,res,response.statusCode);
     }
-    renderDetail(req,res,body);
+  });
+}; //getLocationInfo
+
+/* GET 'Location Info' page */
+module.exports.locationInfo = function (req,res) {
+  getLocationInfo(req,res,function(req,res,data) {
+    renderDetail(req,res,data);
   });
 }; //locationInfo
 
-/* GET 'Add Review' page */
-module.exports.addReview = function (req,res) {
-  var data = {
-    title: "Review Starcups on Loc9r",
+var renderReviewForm = function (req,res,data) {
+  res.render("location-review-form",{
+    title: "Review " + data.name + " on Loc8r",
     pageHeader: {
-      title: "Review Starcups"
+      title: "Review " + data.name
     },
     user: {
-      displayName: "Simon Holmes"
-    }
-  };
-  res.render("location-review-form",data);
-};
+      displayName: "Chris Pratt"
+    },
+    error: req.query.err
+  });
+}; //renderReviewForm
+
+/* GET 'Add Review' page */
+module.exports.addReview = function (req,res) {
+  getLocationInfo(req,res,function(req,res,data) {
+    renderReviewForm(req,res,data);
+  });
+}; //addReview
+
+module.exports.createReview = function (req,res) {
+  if(req.body.name && req.body.rating && req.body.review) {
+    request({
+      url: apiOptions.server + "/api/locations/" + req.params.locationId + "/reviews",
+      method: "POST",
+      json: {
+        author: {
+          displayName: req.body.name
+        },
+        rating: parseInt(req.body.rating,10),
+        comments: req.body.review
+      }
+    },function(err,response,body) {
+      if(response.statusCode === 201) {
+        res.redirect("/location/" + req.params.locationId);
+      } else if((response.statusCode === 400) && body.name && (body.name === "ValidationError")) {
+        res.redirect("/location/" + req.params.locationId + "/reviews/new?err=val");
+      } else {
+        _showError(req,res,response.statusCode);
+      }
+    });
+  } else {
+    res.redirect("/location/" + req.params.locationId + "/reviews/new?err=val");
+  }
+}; //createReview

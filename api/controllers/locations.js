@@ -215,6 +215,7 @@ module.exports.createReview = function(req,res) {
         });
         location.save(function(err,location) {
           if(err) {
+            console.log(err);
             sendJSONResponse(res,400,err);
           } else {
             updateAverageRating(location._id);
